@@ -1,0 +1,80 @@
+#+TITLE: Babel Demo
+* asymptote
+#+header: :var n=8
+#+begin_src asymptote :file asy-title.png
+  import geometry;
+
+  size(7cm,0);
+
+  picture pic;
+
+  path c=(0,1){dir(-5)}..{dir(-5)}(1,0);
+
+  path motif=buildcycle(c,rotate(90)*c,
+                        rotate(180)*c,rotate(-90)*c);
+  filldraw(pic,motif,lightred+white,black);
+
+  for(int i=0; i<n; ++i)
+    {
+      for(int j=0; j<n; ++j)
+        {
+          add(shift(2*i,2*j)*pic);
+        }
+    }
+#+end_src
+
+#+RESULTS:
+[[file:asy-title.png]]
+
+* mermaid
+#+begin_src mermaid :file test.png
+  sequenceDiagram
+      participant Alice
+      participant Bob
+      Alice->>John: Hello John, how are you?
+      loop Healthcheck
+          John->>John: Fight against hypochondria
+      end
+      Note Right of John: Rational thoughts <br/>prevail!
+      John-->>Alice: Great!
+      John->>Bob: How about you?
+      Bob-->>John: Jolly good!    
+#+end_src
+
+#+RESULTS:
+[[file:test.png]]
+
+* metapost
+#+begin_src metapost :file mpost.mps
+  prologues := 3;
+  input boxes;
+  beginfig(1);
+    u := 2cm ;
+    z1 = (0,0) ;
+    z2 = (2u,4u) ;
+    z3 = (4u,0) ;
+    color yellow;
+    yellow:=(1,1,0);
+
+    def sample (expr p, c) = 
+      draw p withpen pencircle scaled 2.5mm withcolor white ;
+      draw p withpen pencircle scaled 2.0mm withcolor c ;
+    enddef ;
+
+    for i=.75 step .05 until 1 : 
+      sample (z1 .. tension i .. z2 .. z3, .625red) ;
+    endfor ;
+
+    for i=1 step .05 until 2 : 
+      sample (z1 .. tension i .. z2 .. z3, .625yellow) ;
+    endfor ;
+
+    sample (z1 .. z2 .. z3, .625white) ;
+    sample (z1 ... z2 ... z3, .625white) ;
+  endfig;
+  end
+#+end_src
+
+#+ATTR_HTML: :width 500
+#+RESULTS:
+[[file:mpost.mps]]
